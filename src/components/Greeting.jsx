@@ -1,8 +1,8 @@
 
 
-const Greeting = () => {
+const Greeting = ( { name } ) => {
   return (
-    <div>Greeting</div>
+    <div>Greeting { name }</div>
   )
 }
 

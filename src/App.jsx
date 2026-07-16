@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import Counter from './components/Counter'
+import Greeting from './components/Greeting'
+import Links from './components/Links'
 import './App.css'
 
 function App() {
@@ -16,10 +18,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <Greeting name='here is where you put something' />
         </div>
         
       </section>
@@ -27,6 +26,7 @@ function App() {
       <div className="ticks"></div>
 
       <section id="next-steps">
+        <Links name='Wow this variable sure would be useful for something' />
         <div id="docs">
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#documentation-icon"></use>

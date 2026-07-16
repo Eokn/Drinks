@@ -1,8 +1,8 @@
 
 
-const Links = () => {
+const Links = ( { name }) => {
   return (
-    <div>Links</div>
+    <div>Links for { name }</div>
   )
 }
 
