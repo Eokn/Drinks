@@ -4,7 +4,7 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import Counter from './components/Counter'
 import Greeting from './components/Greeting'
-import Links from './components/Links'
+import Data from './components/Data'
 import './App.css'
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
       <div className="ticks"></div>
 
       <section id="next-steps">
-        <Links name='Wow this variable sure would be useful for something' />
+        <Data name='name of the user' userId='nameuserid' />
         <div id="docs">
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#documentation-icon"></use>

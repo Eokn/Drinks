@@ -2,7 +2,7 @@
 
 const Greeting = ( { name } ) => {
   return (
-    <div>Greeting { name }</div>
+    <div>Greetings { name || "World"} to the greeting component</div>
   )
 }
 
