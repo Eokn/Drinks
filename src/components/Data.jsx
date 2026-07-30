@@ -6,16 +6,16 @@ const Data = ( { name, userId }) => {
 
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.data.profile)
-    const [user, setUser] = useState({
-      name:'guest',
-      email:'guest.gmail.com'
-    }
-    );
-    useEffect(()=>{
-      if (userData){
-        setUser(userData)
-      }
-    },[userData])
+    // const [user, setUser] = useState({
+    //   name:'guest',
+    //   email:'guest.gmail.com'
+    // }
+    // );
+    // useEffect(()=>{
+    //   if (userData){
+    //     setUser(userData)
+    //   }
+    // },[userData])
 
     
     
@@ -41,13 +41,13 @@ const Data = ( { name, userId }) => {
         <button
           type="button"
           className="counter"
-          onClick={() => dispatch(getData())}
+          onClick={() => dispatch(getData(3))}
         >
           3
         </button>
       {
         
-        Object.entries(user).map(([key,value]) => (
+        Object.entries(userData).map(([key,value]) => (
           (typeof value !== 'object') &&
           <p key={key}>{key}: {value}</p>
           

@@ -19,6 +19,7 @@ import {ThemeProvider , createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from './pages/Home';
 import About from './pages/About';
+import Navbar from './components/NavBar';
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ function App() {
   
   return (
     <ThemeProvider theme={theme}>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route index element={ <Home /> } />
