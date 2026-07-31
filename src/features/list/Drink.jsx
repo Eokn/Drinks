@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { makeStyles } from 'tss-react/mui';
 import { useDispatch } from 'react-redux'
-import ADD_TO
+import { ADD_TO_CART } from '../cart/cartSlice'
 
 const useStyles = makeStyles()({
   colorSecondary: {
@@ -39,7 +39,7 @@ export default function Drink({ image, name, id, info, glass, category, instruct
   const dispatch = useDispatch()
   const thisItem = { image, name, id, info, glass, category, instructions, ingredients, amount }
   return (
-    <Grid item component='article' xs={12} sm={6} md={4} >
+    <Grid item component='article' size={{xs:12, sm:6, md:4}} >
       <Card className={classes.colorSecondary}>
         <div >
         <img src={image} alt={name} className={classes.imgStyles}/>

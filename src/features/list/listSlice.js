@@ -5,6 +5,7 @@ const drinksAdapter = createEntityAdapter()
 const initialState = drinksAdapter.getInitialState({
   searchTerm: '',
   filterTerm: '',
+  status: 'idle',
 });
 
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='

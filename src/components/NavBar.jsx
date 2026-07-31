@@ -11,7 +11,7 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import Typography from '@mui/material/Typography'
 import { makeStyles } from 'tss-react/mui';
 
-import { selectCartOpen, selectCartSize, UPDATE_CARTOPEN } from '../features/cartSlice'
+import { selectCartOpen, selectCartSize, UPDATE_CARTOPEN } from '../features/cart/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 const useStyles = makeStyles()(theme => ({

@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl'
 import { makeStyles } from 'tss-react/mui';
 import Paper from '@mui/material/Paper'
 import Input from '@mui/material/Input'
-import { UPDATE_FILTERVALUE, UPDATE_SEARCHTERM, selectFilteredDrinks, getDrinks } from '../features/listSlice';
+import { UPDATE_FILTERVALUE, UPDATE_SEARCHTERM, selectFilteredDrinks, getDrinks } from './listSlice';
 import { useDispatch, useSelector } from 'react-redux'
 const useStyles = makeStyles()(theme => ({
   formControl: {

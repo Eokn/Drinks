@@ -1,10 +1,10 @@
 import React from 'react'
 import Drink from './Drink'
-import Loading from './Loading'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
+import Loading from '../../components/Loading'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Grid'
 import { makeStyles } from 'tss-react/mui';
-import { selectLoading, selectFilteredDrinks } from '../dataSlice'
+import { selectLoading, selectFilteredDrinks } from './listSlice'
 import { useSelector } from 'react-redux'
 const useStyles = makeStyles()({
 
