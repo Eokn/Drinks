@@ -20,6 +20,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Home from './pages/Home';
 import About from './pages/About';
 import Navbar from './components/NavBar';
+import CartWindow from './features/cart/CartWindow';
+import { useSelector } from 'react-redux';
+import { selectCartOpen } from './features/cart/cartSlice';
 
 const theme = createTheme({
   palette: {
@@ -37,11 +40,12 @@ const theme = createTheme({
 
 
 function App() {
-  
+  const cartVisible = useSelector(selectCartOpen)
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
       <Navbar />
+      {cartVisible ? <CartWindow /> : ''}
         <Routes>
           <Route index element={ <Home /> } />
           <Route path="about" element={ <About /> } />
