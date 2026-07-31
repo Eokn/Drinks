@@ -74,14 +74,12 @@ export default function SingleDrink() {
 //problem = the id array for entities is not the same as the returned drink id used to search for it.
   React.useEffect(() => {
     if(!drinkInQuestion){
-      console.log('no drink')
       dispatch(getSingleDrink(id))
   }}, [id, drinkInQuestion])
   if (loading) {
     return <Loading/>
   }
   if (!drinkInQuestion) {
-    console.log(drinkInQuestion, id)
     return <h2 className={classes.drinkName}>no drink to display</h2>
   } else {
     const {

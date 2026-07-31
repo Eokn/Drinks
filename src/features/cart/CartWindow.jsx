@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui';
 import { selectCart, selectTotal } from './cartSlice'
@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem'
 import Button from '@mui/material/Button'
 import CartItem from './CartItem'
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
+import { selectSignedIn } from '../profile/profileSlice';
 
 const useStyles = makeStyles()((theme) => ({
     listStyles:{
@@ -57,13 +58,19 @@ const CartWindow = () => {
     const { classes } = useStyles()
     const cart = useSelector(selectCart)
     const total = useSelector(selectTotal)
+    const signedIn = useSelector(selectSignedIn)
+    console.log(signedIn)
     return (
         <List className={classes.listStyles}>
 
             {cart.map(item => 
             {return <CartItem key={item.id} {...item}/>})}
             {cart.length > 0 ? <ListItem>
-                <div className={classes.totalContainer}><p className={classes.centered}>Total: ${total}</p><Button component={Link} to='/checkout' className={classes.buttonCheckout} variant='outlined'><SubdirectoryArrowRightIcon color='primary' />To Checkout</Button></div>
+                <div className={classes.totalContainer}>
+                    <p className={classes.centered}>
+                        Total: ${total}</p>
+                    <Button component={Link} to={signedIn ? '/checkout' : '/login'} className={classes.buttonCheckout} variant='outlined'>
+                    <SubdirectoryArrowRightIcon color='primary' />To Checkout</Button></div>
             </ListItem> : <p className={classes.centered}>Add some items!</p>}
         </List>
     )

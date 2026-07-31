@@ -53,10 +53,8 @@ export default function SearchForm() {
 
   //if not re-entering page, act as normal with api calls.
   React.useEffect(()=> {
-    console.log('this is where i ended up useeffect2', !skip.current, searchTerm)
     if (!skip.current && searchTerm) {
       dispatch(getDrinks(searchTerm))
-      console.log('this is where i ended upwasd', filteredDrinks, skip.current, searchTerm)
     } else {skip.current = false}
   },[dispatch, searchTerm])
 

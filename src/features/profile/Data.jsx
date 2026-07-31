@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react"
-import { getData } from "./profileSlice";
+import { getData, selectSignedIn } from "./profileSlice";
 import {useDispatch, useSelector} from 'react-redux'
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
-const Data = ( { name, userId }) => {
+const Data = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const userData = useSelector((state) => state.profile.profile)
+    const isSignedIn = useSelector(selectSignedIn)
+    
     // const [user, setUser] = useState({
     //   name:'guest',
     //   email:'guest.gmail.com'
@@ -17,35 +22,40 @@ const Data = ( { name, userId }) => {
     //     setUser(userData)
     //   }
     // },[userData])
-
+  useEffect(()=>{
+    console.log(userData)
+    if(isSignedIn){
+      navigate('/checkout')
+    }
+  },[isSignedIn])
     
     
   return (
     
     <div>
-      <p>Sign in as user:</p>
+      <p>Sign in a user before proceeding to checkout:</p>
 
-      <button
+      <Button
           type="button"
           className="counter"
           onClick={() => dispatch(getData(1))}
         >
-          1
-        </button>
-        <button
+          User 1
+        </Button>
+        <Button
           type="button"
           className="counter"
           onClick={() => dispatch(getData(2))}
         >
-          2
-        </button>
-        <button
+          User 2
+        </Button>
+        <Button
           type="button"
           className="counter"
           onClick={() => dispatch(getData(3))}
         >
-          3
-        </button>
+          User 3
+        </Button>
 
         <Typography variant='h2'>User Data</Typography>
       {

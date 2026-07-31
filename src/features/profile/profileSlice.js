@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import { createAppSlice } from "../../app/createAppSlice";
 
 const initialState = {
+    isSignedIn: 'no',
     profile: {},
 }
 
@@ -34,6 +35,7 @@ const profileSlice = createSlice({
         })
         .addCase(getData.fulfilled, (state, action) => {
             state.status = 'idle'
+            state.isSignedIn = 'yes'
             state.profile = action.payload
         })
         .addCase(getData.rejected, state => {
@@ -42,4 +44,7 @@ const profileSlice = createSlice({
     }
 })
 
+export const selectSignedIn = createSelector(state => state.profile.isSignedIn, 
+    (result) => result === 'yes')
+export const selectProfile = createSelector(state => state.profile.profile, x => x)
 export default profileSlice
