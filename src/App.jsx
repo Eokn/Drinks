@@ -40,16 +40,27 @@ function App() {
   
   return (
     <ThemeProvider theme={theme}>
-      <Navbar />
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route index element={ <Home /> } />
           <Route path="about" element={ <About /> } />
-    
+          
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
   )
 }
+
+{/* <Route path="/drink/:id">
+          <SingleDrink />
+        </Route>
+        <Route path='/checkout'>
+          <Checkout />
+        </Route>
+        <Route path="*">
+          <Error />
+        </Route> */}
+
 
 export default App

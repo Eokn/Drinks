@@ -3,12 +3,14 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Counter from '../components/Counter'
 import { Link } from 'react-router-dom'
+import SearchForm from '../components/SearchForm'
 
 const Home = () => {
   return (
     <div>
       <Counter />
       <Link to='/about'>Link to the About page!</Link>
+      <SearchForm />
     </div>
   )
 }

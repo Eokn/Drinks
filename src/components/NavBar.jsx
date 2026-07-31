@@ -9,13 +9,12 @@ import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Typography from '@mui/material/Typography'
-import {makeStyles} from '@mui/styles'
+import { makeStyles } from 'tss-react/mui';
 
-'@mui/material/Grid'
-// import {selectCartSize, UPDATE_CARTOPEN} from '../dataSlice'
-// import { useSelector, useDispatch } from 'react-redux'
+import { selectCartOpen, selectCartSize, UPDATE_CARTOPEN } from '../features/cartSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles()(theme => ({
   root: {
     paddingLeft: '.5rem',
     letterSpacing: '.1rem',
@@ -40,13 +39,13 @@ const useStyles = makeStyles(theme => ({
 }))
 //nav links, toggle cart visibility.
 export default function Navbar() {
-//   const dispatch = useDispatch()
-  const classes = useStyles()
-//   const cartSize = useSelector(selectCartSize)
-//   const cartOpen = useSelector(state => state.data.cartOpen === 'open')
-//   cartOpen ? dispatch(UPDATE_CARTOPEN('closed')) : dispatch(UPDATE_CARTOPEN('open'))  
+  const dispatch = useDispatch()
+  const { classes } = useStyles()
+  const cartSize = useSelector(selectCartSize)
+  const cartOpen = useSelector(selectCartOpen)
+  
 return (
-    <AppBar position='fixed' color='secondary' className={classes.test}>
+    <AppBar position='sticky' color='secondary' className={classes.test}>
       <Toolbar className={classes.toolbarStyles} disableGutters>
         <Button component={Link} to='/' variant='contained' color='secondary' >
 
@@ -62,8 +61,8 @@ return (
             <Button component={Link} to='/about'>about</Button>
           
         </ButtonGroup>
-        <IconButton className={classes.icon} onClick={()=>{}}>
-          <Badge badgeContent={4} className={classes.badge} color='primary'>
+        <IconButton className={classes.icon} onClick={()=>{cartOpen ? dispatch(UPDATE_CARTOPEN('closed')) : dispatch(UPDATE_CARTOPEN('open'))}}>
+          <Badge badgeContent={cartSize} className={classes.badge} color='primary'>
             <ShoppingCartIcon fontSize='large' className={classes.darkPrimary}/>
           </Badge>
         </IconButton>

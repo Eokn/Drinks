@@ -1,7 +1,9 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import dataSlice from '../dataSlice';
+import { drinksSlice } from '../features/listSlice';
+import cartSlice from '../features/cartSlice';
 
-const rootReducer = combineSlices( dataSlice )
+const rootReducer = combineSlices( dataSlice, drinksSlice, cartSlice )
 
 // export const rootState = rootReducer()
 
