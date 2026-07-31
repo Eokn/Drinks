@@ -14,6 +14,7 @@ export const getDrinks = createAsyncThunk(
   async (searchTerm) => {
         const response = await fetch(`${url}${searchTerm}`);
       const data = await response.json();
+
       const { drinks } = data;
       const strippedDrinks = drinks.map(drink => { 
           const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strGlass, strCategory, strInstructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5 } = drink;
@@ -21,7 +22,19 @@ export const getDrinks = createAsyncThunk(
     return strippedDrinks;
   }
 );
-
+const url2 = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i='
+export const getSingleDrink = createAsyncThunk(
+  'drinks/fetchSingleDrink',
+  async (searchTerm) => {
+        const response = await fetch(`${url2}${searchTerm}`);
+      const data = await response.json();
+      const { drinks } = data;
+      const strippedDrink = drinks.map(drink => { 
+          const { idDrink, strDrink, strDrinkThumb, strAlcoholic, strGlass, strCategory, strInstructions, strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5 } = drink;
+          return { id: idDrink, name: strDrink, image: strDrinkThumb, info: strAlcoholic, glass: strGlass, category: strCategory, instructions: strInstructions, ingredients: [ strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5 ], amount: 1}})
+    return strippedDrink[0];
+  }
+);
 
 
 export const drinksSlice = createSlice({
@@ -34,23 +47,6 @@ export const drinksSlice = createSlice({
     UPDATE_SEARCHTERM: (state, action) => {
       state.searchTerm = action.payload;
     },
-    
-    // UPDATE_CARTOPEN: (state, action) => {
-    //   state.cartOpen = action.payload;
-    // },
-    // ADD_TO_CART: (state, action) => {
-    //   if(Object.keys(state.cart).filter(x => state.cart[x].id === action.payload.id).length === 0){
-    //     state.cart.push(action.payload);
-    //   } else{state.cart = Object.keys(state.cart).map(x => state.cart[x].id !== action.payload.id ? {...state.cart[x]} : {...state.cart[x], amount: state.cart[x].amount+1})
-    //   }
-    // },
-    // DECREASE: (state, action) => {
-    //   state.cart = Object.keys(state.cart).map(x => state.cart[x].id !== action.payload.id ? {...state.cart[x]} : {...state.cart[x], amount: state.cart[x].amount-1});
-    //   state.cart = Object.keys(state.cart).map(x => state.cart[x]).filter(y => y.amount !== 0)
-    // },
-    // REMOVE: (state, action) => {
-    //   state.cart = Object.keys(state.cart).map(x => state.cart[x]).filter(y => y.id !== action.payload.id)
-    // },
     // REMOVEALL: (state) => {
     //   state.cart = Object.keys(state.cart).map(x => state.cart[x]).filter(y => false)
     // },
@@ -69,7 +65,19 @@ export const drinksSlice = createSlice({
       .addCase(getDrinks.rejected, (state) => {
         state.status = 'idle';
         
-      });
+      })
+      .addCase(getSingleDrink.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getSingleDrink.fulfilled, (state, action) => {
+        drinksAdapter.addOne(state, action.payload)
+        state.status = 'idle';
+        
+      })
+      .addCase(getSingleDrink.rejected, (state) => {
+        state.status = 'idle';
+        
+      })
   },
 });
 
@@ -84,7 +92,11 @@ export const selectFilteredDrinks = createSelector(adapterSelectors.selectAll,
     const searchFilter = new RegExp(`${filterTerm}`, "i");
     return drinks.filter((drink)=> drink.name.search(searchFilter) !== -1)
 })
-    
+
+// this doesn't work because of the id from adapterSelectors is not equal to the id from the
+// returned drink list leading to a mismatch when I try to selectById using the drink api id
+// export const selectSingleDrink = adapterSelectors.selectById
+export const selectSingleDrink = createSelector([adapterSelectors.selectAll, (state,id) => id], (drinks, id) => drinks.find(drink => drink.id == id))
 // export const selectCartSize = createSelector(state => Object.keys(state.data.cart).map(x => state.data.cart[x]), cart => cart.map(x=>x.amount).reduce((total,prev)=>total+prev,0) )
 // export const selectCart = createSelector(state => Object.keys(state.data.cart).map(x => state.data.cart[x]), cart => cart)
 // export const selectTotal = createSelector(state => Object.keys(state.data.cart).map(x=> state.data.cart[x]), cart => cart.map(y=>[y.amount,y.ingredients.filter(z=>z!=null)]).reduce((total,next)=>total+next[0]*(((next[1].length*200)-1)/100),0).toFixed(2))

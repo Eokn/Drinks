@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { getData } from "../dataSlice";
+import { getData } from "./profileSlice";
 import {useDispatch, useSelector} from 'react-redux'
+import Typography from "@mui/material/Typography";
 
 const Data = ( { name, userId }) => {
 
     const dispatch = useDispatch()
-    const userData = useSelector((state) => state.data.profile)
+    const userData = useSelector((state) => state.profile.profile)
     // const [user, setUser] = useState({
     //   name:'guest',
     //   email:'guest.gmail.com'
@@ -22,7 +23,7 @@ const Data = ( { name, userId }) => {
   return (
     
     <div>
-      <p>Get data for user:</p>
+      <p>Sign in as user:</p>
 
       <button
           type="button"
@@ -45,6 +46,8 @@ const Data = ( { name, userId }) => {
         >
           3
         </button>
+
+        <Typography variant='h2'>User Data</Typography>
       {
         
         Object.entries(userData).map(([key,value]) => (

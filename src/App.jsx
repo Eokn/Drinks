@@ -23,6 +23,9 @@ import Navbar from './components/NavBar';
 import CartWindow from './features/cart/CartWindow';
 import { useSelector } from 'react-redux';
 import { selectCartOpen } from './features/cart/cartSlice';
+import SingleDrink from './pages/SingleDrink';
+import Checkout from './pages/Checkout';
+import Error from './pages/Error';
 
 const theme = createTheme({
   palette: {
@@ -49,7 +52,9 @@ function App() {
         <Routes>
           <Route index element={ <Home /> } />
           <Route path="about" element={ <About /> } />
-          
+          <Route path="/drink/:id" element={ <SingleDrink/> }/>
+        <Route path='/checkout' element={ <Checkout /> }/>
+        <Route path="*" element={ <Error /> }/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

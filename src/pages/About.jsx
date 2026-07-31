@@ -1,18 +1,18 @@
 import React from 'react'
-import Greeting from '../components/Greeting'
-import Data from '../components/Data'
-import Counter from '../components/Counter'
+import Greeting from '../features/profile/Greeting'
+import Counter from '../features/profile/Counter'
+import Data from '../features/profile/Data'
 import { Link } from 'react-router-dom'
 const About = () => {
   return (
-    <div>About
+    <main>About
       <Greeting />
+      <Counter />
       <Data />
       
-            <Counter />
 
       <Link to='/'>Link to the Home page!</Link>
-    </div>
+    </main>
   )
 }
 
