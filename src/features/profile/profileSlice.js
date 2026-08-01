@@ -26,7 +26,10 @@ const profileSlice = createSlice({
     name:"profile",
     initialState,
     reducers: {
-
+        SIGNOUT: (state) => {
+            state.profile={}
+            state.isSignedIn='no'
+        },
     },
     extraReducers: builder => {
         builder
@@ -43,7 +46,7 @@ const profileSlice = createSlice({
         })
     }
 })
-
+export const { SIGNOUT } = profileSlice.actions
 export const selectSignedIn = createSelector(state => state.profile.isSignedIn, 
     (result) => result === 'yes')
 export const selectProfile = createSelector(state => state.profile.profile, x => x)

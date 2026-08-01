@@ -1,8 +1,9 @@
+import Typography from "@mui/material/Typography"
 
 
 const Greeting = ( { name } ) => {
   return (
-    <div>Greetings { name || "World"}</div>
+    <Typography variant='h5' color='primary'>Greetings { name || "World"}</Typography>
   )
 }
 

@@ -1,20 +1,17 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCartSize } from '../cart/cartSlice'
+import Typography from '@mui/material/Typography'
 
 const Counter = ( { name }) => {
-    const [count, setCount] = useState(0)
+  const cartSize= useSelector(selectCartSize)
   return (
     <div>
-        <p data-testid="counter-name">
-            counter belonging to { name || "a Guest"} 
-        </p>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          increment
-        </button>
-        <p data-testid="counter-display">Count is {count}</p>
+        <Typography data-testid="counter-name" variant='body2'>
+            Account belonging to { name || "a Guest"} 
+        </Typography>
+      
+        <Typography data-testid="counter-display">current cart contains {` ${cartSize} `} items</Typography>
     </div>
   )
 }
