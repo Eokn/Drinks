@@ -13,6 +13,7 @@ import { makeStyles } from 'tss-react/mui';
 
 import { selectCartOpen, selectCartSize, UPDATE_CARTOPEN } from '../features/cart/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { selectSignedIn } from '../features/profile/profileSlice'
 
 const useStyles = makeStyles()(theme => ({
   root: {
@@ -43,6 +44,7 @@ export default function Navbar() {
   const { classes } = useStyles()
   const cartSize = useSelector(selectCartSize)
   const cartOpen = useSelector(selectCartOpen)
+  const isSignedIn = useSelector(selectSignedIn)
   
 return (
     <AppBar position='sticky' color='secondary' className={classes.test}>
@@ -54,11 +56,13 @@ return (
 
         </Button>
         <div>
-          <ButtonGroup  component='nav' color='secondary' variant='contained' size='large'>
+          <ButtonGroup  component='nav' color='secondary' variant='contained' size='small'>
           
             <Button component={Link} to='/'>home</Button>
           
             <Button component={Link} to='/about'>about</Button>
+
+            <Button component={Link} to='/login'>{isSignedIn ? 'profile' : 'Login'}</Button>
           
         </ButtonGroup>
         <IconButton className={classes.icon} onClick={()=>{cartOpen ? dispatch(UPDATE_CARTOPEN('closed')) : dispatch(UPDATE_CARTOPEN('open'))}}>

@@ -6,14 +6,21 @@ import Grid from '@mui/material/Grid'
 import { makeStyles } from 'tss-react/mui';
 import { selectLoading, selectFilteredDrinks } from './listSlice'
 import { useSelector } from 'react-redux'
-const useStyles = makeStyles()({
+import Card from '@mui/material/Card'
+const useStyles = makeStyles() (theme => ({
 
+  noDrinksContainer: {
+    width:'80%',
+    maxWidth:'40rem',
+    backgroundColor: theme.palette.secondary.main,
+    padding: '1rem',
+    margin: '10rem auto 0 auto',
+  },
   sectionTitle: {
     marginBottom:'3rem',
     marginTop:'5rem',
     textAlign:'center',
     letterSpacing:'.2rem',
-    color:'#eeeeee',
   },
   gridCardContainer: {
     width: '90%',
@@ -23,25 +30,31 @@ const useStyles = makeStyles()({
     margin:'0',
   },
 
-});
+}));
 // if conditions present, map filteredDrinks into Drink components.
 export default function DrinkList() {
   const loading = useSelector(selectLoading)
   const filteredDrinks = useSelector(selectFilteredDrinks)
+  const searchTerm = useSelector(state => state.drinks.searchTerm)
   const { classes } = useStyles()
   if (loading) {
     return <Loading/>
   }
-  if (filteredDrinks.length < 1) {
+  if (filteredDrinks.length < 1 && searchTerm.length > 0) {
     return (
+      
+      <Card component='section' className={classes.noDrinksContainer}>
+
+      
       <Typography variant='h3' component='h2' className={classes.sectionTitle}>
-        No drinks matched your search criteria
+        No drinks matched your search
       </Typography>
+      </Card>
     )
   }
   return (
     <section className={classes.wholeListContainer}>
-      <Typography variant='h3' className={classes.sectionTitle}>Drinks</Typography>
+      {/* <Typography variant='h3' className={classes.sectionTitle}>Drinks</Typography> */}
       <Grid container alignContent='center' className={classes.gridCardContainer} spacing={4} >
         {filteredDrinks.map((item) => {
           return <Drink key={item.id} {...item} />
