@@ -87,7 +87,7 @@ export default function SearchForm() {
     <section component='section' className={classes.searchContainer}>
       <Paper component='form' className={classes.paperForm}  onSubmit={handleSubmit} variant='outlined' >
         <FormControl className={classes.formControl}>
-          <label htmlFor='name' className={classes.labelStyles}>search your favorite Drink</label>
+          <label htmlFor='name' className={classes.labelStyles}>search for your favorite Drink</label>
           <Input fullWidth={true} disableUnderline={true} autoFocus={true} className={classes.inputStyles} 
             type='text'
             name='name'

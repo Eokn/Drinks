@@ -7,6 +7,7 @@ import { makeStyles } from 'tss-react/mui';
 import { selectCartSize, REMOVEALL } from './cartSlice'
 import { selectTotal } from './cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { selectProfile } from '../profile/profileSlice'
 
 const useStyles = makeStyles()(theme => ({
     formContainer: {
@@ -55,12 +56,15 @@ const PaymentForm = () => {
     const cardexp = React.useRef()
     const cardCVV = React.useRef()
     const cartSize = useSelector(selectCartSize)
+    const profile = useSelector(selectProfile)
     const totalCost = useSelector(selectTotal)
     const [input, setInput] = React.useState({cardNumber:'',cardExp:[],cardCVV:''})
     const [payState, setPayState] = React.useState({payment:'',text:'',cost:totalCost,})
     const handleSubmit = (e) => {
         e.preventDefault();
         const thisDate = new Date()
+        console.log(input)
+
         if (input.cardNumber.length < 16){
             setPayState({payment:'error',text:'Please enter a valid credit card number.'})
             } else if(input.cardExp[0] < thisDate.getFullYear() || (input.cardExp[0] === thisDate.getFullYear() && input.cardExp[1] <= thisDate.getMonth()+1)){
@@ -74,14 +78,29 @@ const PaymentForm = () => {
             }
 
     }
-    const cardUpdate = () => { if(!/\D/g.test(cardnumber.current.value) && (cardnumber.current.value.length < 17)){ setInput({...input, cardNumber:cardnumber.current.value})}}
-    const expUpdate = () => {setInput({...input, cardExp:cardexp.current.value.toString().split('-')})}
-    const CVVUpdate = () => { if(!/\D/g.test(cardCVV.current.value) && (cardCVV.current.value.length < 4)){ setInput({...input, cardCVV:cardCVV.current.value})} }
+    const cardUpdate = () => { if(!/\D/g.test(cardnumber.current.value)
+                             && (cardnumber.current.value.length < 17)){ 
+                                setInput({...input, cardNumber:cardnumber.current.value})}}
+    const expUpdate = () => {  let newExpData = cardexp.current.value.toString().split('-');
+                                if( 2050>=newExpData[0] && newExpData[1] <= 12){
+                                setInput({...input, cardExp:newExpData})}
+                                 else {
+                                    //cut last letter off of string of newexpdata[0], try to make new
+                                    //current.value
+                                    newExpData[0] = 0 + newExpData[0].toString().slice(0,-1)
+                                    cardexp.current.value = newExpData.join('-')
+                                  setInput({...input, cardExp:newExpData})
+                                }}
+    const CVVUpdate = () => { if(!/\D/g.test(cardCVV.current.value) 
+                            && (cardCVV.current.value.length < 4)){ 
+                                setInput({...input, cardCVV:cardCVV.current.value})} }
 
     return (
         
         <Paper component='form' className={classes.formContainer} onSubmit={handleSubmit} variant='outlined' >
             <p className={classes.labelText}>Total: ${payState.payment !== 'accepted' ? totalCost : payState.cost}. Pay below.</p>
+            <p className={classes.labelText}>Order for: {profile.name}</p>
+            <p className={classes.labelText}>Delivery to Personal Address</p>
             <FormControl className={classes.formControl}>
                 <label htmlFor='cardNum' ></label>
                 <Input required fullWidth={false} disableUnderline={true} autoFocus={false} value={input.cardNumber} className={`${classes.outlined} ${classes.inputMargin}`} placeholder='Card number'
@@ -94,8 +113,10 @@ const PaymentForm = () => {
                 </FormControl>
                 <FormControl className={`${classes.formControl} ${classes.outlined}`}>
                 <label htmlFor='cardExp' className={classes.labelText}>Card expiration date</label>
-                <Input required fullWidth={false} disableUnderline={true} autoFocus={false} placeholder='Card number' className={classes.inputMargin}
+                <Input required fullWidth={false} disableUnderline={true} autoFocus={false} placeholder='' className={classes.inputMargin}
             type='month'
+            min="2026-08"
+            max="2050-08"
             name='cardExp'
             id='cardExp'
             onChange={expUpdate}

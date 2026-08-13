@@ -63,6 +63,7 @@ const useStyles = makeStyles()((theme) => ({
         textAlign:'center',
         alignSelf:'stretch',
         justifyContent:'center',
+        alignContent:'center',
         borderRight:'2px solid',
         marginLeft:'.4rem',
         

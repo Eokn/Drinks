@@ -32,13 +32,12 @@ export default function About() {
   const { classes } = useStyles()
   return (
     <Card component='section' className={classes.aboutContainer}>
-      <Typography variant='h5' component='h1' className={classes.title}>about us</Typography>
+      <Typography variant='h5' component='h1' className={classes.title}>About this site</Typography>
       <Typography variant='body2' component='p' className={classes.paragraphFiller}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-        repudiandae architecto qui adipisci in officiis, aperiam sequi atque
-        perferendis eos, autem maiores nisi saepe quisquam hic odio consectetur
-        nobis veritatis quasi explicabo obcaecati doloremque? Placeat ratione
-        hic aspernatur error blanditiis?
+        This is an old project site I remade to bring myself up to speed on new MUI5, 
+        redux and react-dom, and check out vite.
+        It's a SPA hooked up to the Drinks API, with cart functionality and a mock signin/profile.
+        
       </Typography>
     </Card>
   );

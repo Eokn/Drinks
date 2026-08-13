@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getData, selectSignedIn, SIGNOUT } from "./profileSlice";
+import { getData, selectProfile, selectSignedIn, SIGNOUT } from "./profileSlice";
 import {useDispatch, useSelector} from 'react-redux'
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -53,17 +53,13 @@ const useStyles = makeStyles()(theme => ({
     const { classes } = useStyles()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userData = useSelector((state) => state.profile.profile)
+    const userData = useSelector(selectProfile)
     const isSignedIn = useSelector(selectSignedIn)
     const cartSize = useSelector(selectCartSize)
 
     function flattenObj(obj, prefix='', flattenedObj = {}) {
-          console.log('initial object', obj)
           Object.entries(obj).map(([key,value]) => {
             if(typeof value === 'object'){
-              // console.log('object detected! : ', key)
-              // const { [key]:gone , ...newObj} = obj
-              // console.log({...obj},{...value},'merge',{...newObj, ...value})
               flattenObj(value, prefix=key, flattenedObj)
 
             }
@@ -74,22 +70,15 @@ const useStyles = makeStyles()(theme => ({
         })
           return flattenedObj
         }
-    // const [user, setUser] = useState({
-    //   name:'guest',
-    //   email:'guest.gmail.com'
-    // }
-    // );
-    // useEffect(()=>{
-    //   if (userData){
-    //     setUser(userData)
-    //   }
-    // },[userData])
-  useEffect(()=>{
-    console.log(userData)
-    if(isSignedIn && cartSize !== 0){
-      navigate('/checkout')
+
+  function signInNavAway(x) {
+    dispatch(getData(x))
+    if (cartSize == 0){
+      navigate('/');
+    } else {
+      navigate('/checkout');
     }
-  },[isSignedIn])
+  }
     
     
   return (
@@ -103,21 +92,21 @@ const useStyles = makeStyles()(theme => ({
         <Button
           type="button"
           className="counter"
-          onClick={() => dispatch(getData(1))}
+          onClick={() => signInNavAway(1)}
           >
           User 1
         </Button>
         <Button
           type="button"
           className="counter"
-          onClick={() => dispatch(getData(2))}
+          onClick={() => signInNavAway(2)}
           >
           User 2
         </Button>
         <Button
           type="button"
           className="counter"
-          onClick={() => dispatch(getData(3))}
+          onClick={() => signInNavAway(3)}
           >
           User 3
         </Button>

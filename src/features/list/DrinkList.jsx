@@ -28,6 +28,7 @@ const useStyles = makeStyles() (theme => ({
   },
   wholeListContainer: {
     margin:'0',
+    paddingTop:'1.5rem',
   },
 
 }));
