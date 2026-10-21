@@ -113,17 +113,9 @@ const useStyles = makeStyles()(theme => ({
       </ButtonGroup>
       </>
       
-      : <></>}
+      : 
       
-        
-        
-
-      
-
-      {
-        
-        isSignedIn ?
-        <>
+      <>
         <Typography variant='h4'>User Data</Typography>
         <Paper className={classes.dataContainer} >
         {Object.entries(flattenObj(userData)).map(([key,value]) => (
@@ -146,8 +138,16 @@ const useStyles = makeStyles()(theme => ({
         </Button>
       </Paper>
       </>
-         : <></>
-        }
+      }
+      
+        
+        
+
+      
+
+
+        
+
 
 
       

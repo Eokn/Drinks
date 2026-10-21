@@ -148,7 +148,9 @@ const Checkout = () => {
                 </ListItem>
                 })}
             <ListItem className={classes.lastListItem}>
-                <Card variant='outlined' className={classes.paymentContainer}><PaymentForm /></Card>
+                <Card variant='outlined' className={classes.paymentContainer}>
+                    <PaymentForm />
+                </Card>
             </ListItem>
             {cart.length === 0 ? <div className={classes.backContainer}><p className={classes.centered}>cart empty.</p><Button component={Link} to='/' className={classes.buttonCheckout} variant='outlined'><SubdirectoryArrowRightIcon color='primary' />Back to store</Button></div> : ''}
             </List>
