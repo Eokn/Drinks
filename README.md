@@ -6,8 +6,8 @@ An extension of the cocktails API. It has search and shop functionality.
 
 1. Fork or clone the github repo and open up the folder in the CLI
 2. Install all dependencies via the 'npm i' command.
-3. Run the client locally with 'npm start'.
-4. Navigate to the locally hosted client (default is http://localhost:3000/).
+3. Run the client locally with 'npm run dev'.
+4. Navigate to the locally hosted client (default is http://localhost:5173/).
 
 ## Features
 
